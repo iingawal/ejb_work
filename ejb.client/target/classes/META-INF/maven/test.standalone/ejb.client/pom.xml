@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>test.standalone</groupId>
+	<artifactId>ejb.client</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>ejb.client</name>
+
+	<properties>
+		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<version.jboss.bom.eap>7.0.0.GA</version.jboss.bom.eap>
+		<exec.plugin.version>1.2.1</exec.plugin.version>
+
+	</properties>
+
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- JBoss distributes a complete set of Java EE APIs including a Bill 
+				of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection) 
+				of artifacts. We use this here so that we always get the correct versions 
+				of artifacts. Here we use the jboss-eap-javaee7 stack (you can read this 
+				as the JBoss stack of the Java EE APIs and related components. -->
+			<dependency>
+				<groupId>org.jboss.bom</groupId>
+				<artifactId>jboss-eap-javaee7</artifactId>
+				<version>${version.jboss.bom.eap}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.7.2</version>
+				<scope>provided</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.eap</groupId>
+			<artifactId>wildfly-ejb-client-bom</artifactId>
+			<type>pom</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+
+			<groupId>org.ing.ejb</groupId>
+			<artifactId>ejbtestcase</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>${exec.plugin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<executable>java</executable>
+					<mainClass>test.standalone.ejb.client.MainClient</mainClass>
+					
+          <includeProjectDependencies>true</includeProjectDependencies>
+          <includePluginDependencies>true</includePluginDependencies>
+
+				</configuration>
+
+
+
+
+
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
